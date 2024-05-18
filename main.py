@@ -4,8 +4,19 @@ import time
 
 cap = cv2.VideoCapture("Videos/2.mp4")
 pTime = 0
+
+mpDraw = mp.solutions.drawing_utils
+mpFaceMesh = mp.solutions.face_mesh
+faceMesh = mpFaceMesh.FaceMesh()
+
 while True:
     sucess, img = cap.read()
+    imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    results = faceMesh.process(imgRGB)
+
+
+
+
     cTime = time.time()
     fps = 1/(cTime-pTime)
     pTime = cTime
