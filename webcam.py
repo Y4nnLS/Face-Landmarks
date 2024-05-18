@@ -27,8 +27,11 @@ while True:
     if results.multi_face_landmarks:
         for faceLms in results.multi_face_landmarks:
             mpDraw.draw_landmarks(frame, faceLms, mpFaceMesh.FACEMESH_CONTOURS, drawnSpec, drawnSpec)
-            for lm in faceLms.landmark:
-                print(lm)
+
+            for id, lm in enumerate(faceLms.landmark):
+                # print(lm)
+                fh, fw, fc = frame.shape
+                x, y = int(lm.x*fw), int(lm.y*fh)
 
 
     cTime = time.time()
