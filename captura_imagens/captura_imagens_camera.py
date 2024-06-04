@@ -8,26 +8,36 @@ capture_dir = "treinamento/imagens/captured_faces/"
 if not os.path.exists(capture_dir):
     os.makedirs(capture_dir)
 
-cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture(0)
 
-mpDraw = mp.solutions.drawing_utils
-mpFaceMesh = mp.solutions.face_mesh
-faceMesh = mpFaceMesh.FaceMesh(max_num_faces=2)
-drawSpec = mpDraw.DrawingSpec(thickness=1, circle_radius=1)
+# mpDraw = mp.solutions.drawing_utils
+# mpFaceMesh = mp.solutions.face_mesh
+# faceMesh = mpFaceMesh.FaceMesh(max_num_faces=2)
+# drawSpec = mpDraw.DrawingSpec(thickness=1, circle_radius=1)
 
-if not cap.isOpened():
-    print("Erro ao abrir a webcam")
-    exit()
+# if not cap.isOpened():
+#     print("Erro ao abrir a webcam")
+#     exit()
 
 # Inicializar temporizador
 capture_interval = 1  # intervalo de captura em segundos
 
 while True:
-    sujeito_id = input("Por favor, insira o ID do sujeito (ou 'q' para sair): ")
-    if sujeito_id.lower() == 'q':
+    sujeito = input("Por favor, insira o nome do sujeito (ou 'exit' para sair): ")
+    if sujeito.lower() == 'exit':
         break
+    cap = cv2.VideoCapture(0)
+
+    mpDraw = mp.solutions.drawing_utils
+    mpFaceMesh = mp.solutions.face_mesh
+    faceMesh = mpFaceMesh.FaceMesh(max_num_faces=2)
+    drawSpec = mpDraw.DrawingSpec(thickness=1, circle_radius=1)
     
-    sujeito_id = int(sujeito_id)
+    if not cap.isOpened():
+        print("Erro ao abrir a webcam")
+        exit()
+    
+    # sujeito = int(sujeito)
     counter = 0
     start_time = time.time()
 
@@ -55,9 +65,9 @@ while True:
                 # Verificar se é hora de capturar uma nova imagem
                 if time.time() - start_time >= capture_interval:
                     rosto = frame[y_min:y_max, x_min:x_max]
-                    rosto_path = os.path.join(capture_dir, f"s{str(sujeito_id).zfill(2)}_face_{counter}.jpg")
+                    rosto_path = os.path.join(capture_dir, f"{sujeito}_face_{counter}.jpg")
                     cv2.imwrite(rosto_path, rosto)
-                    print(f"Imagem {counter} salva em {rosto_path}")
+                    print(f"Imagem {counter+1} salva em {rosto_path}")
                     counter += 1
                     start_time = time.time()  # Reiniciar temporizador
 
@@ -66,5 +76,7 @@ while True:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-cap.release()
-cv2.destroyAllWindows()
+    cap.release()
+    cv2.destroyAllWindows()
+# cap.release()
+# cv2.destroyAllWindows()
