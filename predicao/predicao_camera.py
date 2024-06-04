@@ -1,7 +1,6 @@
 import cv2
 import mediapipe as mp
 import numpy as np
-import os
 import time
 
 # Função para padronizar as imagens
@@ -11,7 +10,7 @@ def padronizar_imagem(imagem):
     return imagem
 
 # Carregar o modelo treinado
-modelo_path = "../treinamento/modelos/modelo_lbph.yml"
+modelo_path = "treinamento/modelos/modelo_lbph.yml"
 modelo_lbph = cv2.face.LBPHFaceRecognizer_create()
 modelo_lbph.read(modelo_path)
 
@@ -40,14 +39,17 @@ while True:
         for faceLms in results.multi_face_landmarks:
             mpDraw.draw_landmarks(frame, faceLms, mpFaceMesh.FACEMESH_CONTOURS, drawSpec, drawSpec)
 
-            for id, lm in enumerate(faceLms.landmark):
-                fh, fw, fc = frame.shape
-                x, y = int(lm.x * fw), int(lm.y * fh)
-                
-                # Fazer predição
-                rosto = padronizar_imagem(frame)
-                sujeito_predito, confianca = modelo_lbph.predict(rosto)
-                cv2.putText(frame, f'Sujeito: {sujeito_predito}', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            ih, iw, ic = frame.shape
+            face_coords = [(int(lm.x * iw), int(lm.y * ih)) for lm in faceLms.landmark]
+            x_coords = [coord[0] for coord in face_coords]
+            y_coords = [coord[1] for coord in face_coords]
+            x_min, x_max = min(x_coords), max(x_coords)
+            y_min, y_max = min(y_coords), max(y_coords)
+
+            rosto = frame[y_min:y_max, x_min:x_max]
+            rosto = padronizar_imagem(rosto)
+            sujeito_predito, confianca = modelo_lbph.predict(rosto)
+            cv2.putText(frame, f'Sujeito: {sujeito_predito}', (x_min, y_min - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
     cTime = time.time()
     fps = 1 / (cTime - pTime)
