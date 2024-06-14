@@ -111,4 +111,14 @@ sujeitos_teste = np.array([sujeito_map[name] for name in sujeitos_teste], dtype=
 y_pred_lbph = [modelo_lbph.predict(item)[0] for item in dados_teste]
 acuracia_lbph = accuracy_score(sujeitos_teste, y_pred_lbph)
 
+# Avaliar modelo eigenface
+y_pred_eigenface = [modelo_eigenface.predict(item)[0] for item in dados_teste]
+acuracia_eigenface = accuracy_score(sujeitos_teste, y_pred_eigenface)
+
+# Avaliar modelo fisherface
+y_pred_fisherface = [modelo_fisherface.predict(item)[0] for item in dados_teste]
+acuracia_fisherface = accuracy_score(sujeitos_teste, y_pred_fisherface)
+
 print("Acurácia do modelo LBPH:", acuracia_lbph)
+print("Acurácia do modelo LBPH:", acuracia_eigenface)
+print("Acurácia do modelo LBPH:", acuracia_fisherface)
