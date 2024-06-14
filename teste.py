@@ -39,8 +39,8 @@ for arq in lista_faces_captured:
 # Mover imagens para diretórios de treino e teste com seleção aleatória
 for prefixo, arquivos in faces_dict.items():
     random.shuffle(arquivos)
-    arquivos_treino = arquivos[:10]
-    arquivos_teste = arquivos[10:50]  # Seleciona até 40 imagens para teste
+    arquivos_treino = arquivos[10:50]
+    arquivos_teste = arquivos[:10]  # Seleciona até 40 imagens para teste
 
     for arq in arquivos_treino:
         shutil.copyfile(os.path.join(faces_path_captured, arq), os.path.join(faces_path_treino, arq))
