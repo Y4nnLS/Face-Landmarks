@@ -20,7 +20,7 @@ if not os.path.exists(capture_dir):
 #     exit()
 
 # Inicializar temporizador
-capture_interval = 1  # intervalo de captura em segundos
+capture_interval = 0.3  # intervalo de captura em segundos
 
 while True:
     sujeito = input("Por favor, insira o nome do sujeito (ou 'exit' para sair): ")
@@ -41,7 +41,7 @@ while True:
     counter = 0
     start_time = time.time()
 
-    while counter < 20:  # Capturar 20 imagens por sujeito
+    while counter < 50:  # Capturar 20 imagens por sujeito
         ret, frame = cap.read()
         if not ret:
             print("Erro ao capturar frame")
