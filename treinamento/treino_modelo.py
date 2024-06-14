@@ -69,6 +69,13 @@ sujeitos = np.array([sujeito_map[name] for name in sujeitos], dtype=np.int32)
 modelo_lbph = cv2.face.LBPHFaceRecognizer_create()
 modelo_lbph.train(dados_treinamento, sujeitos)
 
+modelo_eigenface = cv2.face.EigenFaceRecognizer_create()
+modelo_eigenface.train(dados_treinamento, sujeitos)
+
+modelo_fisherface = cv2.face.FisherFaceRecognizer_create()
+modelo_fisherface.train(dados_treinamento, sujeitos)
+
+
 # Verificar se o diretório de modelos existe, caso contrário, criar
 modelo_dir = "treinamento/modelos"
 if not os.path.exists(modelo_dir):
@@ -77,6 +84,14 @@ if not os.path.exists(modelo_dir):
 # Salvar o modelo treinado
 modelo_path = os.path.join(modelo_dir, "modelo_lbph.yml")
 modelo_lbph.save(modelo_path)
+
+# Salvar o modelo treinado
+modelo_path = os.path.join(modelo_dir, "modelo_eigenface.yml")
+modelo_eigenface.save(modelo_path)
+
+# Salvar o modelo treinado
+modelo_path = os.path.join(modelo_dir, "modelo_fisherface.yml")
+modelo_fisherface.save(modelo_path)
 
 # Preparar dados de teste
 dados_teste, sujeitos_teste = [], []
