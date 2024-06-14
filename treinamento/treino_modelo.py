@@ -70,7 +70,7 @@ modelo_lbph = cv2.face.LBPHFaceRecognizer_create()
 modelo_lbph.train(dados_treinamento, sujeitos)
 
 # Verificar se o diretório de modelos existe, caso contrário, criar
-modelo_dir = "modelos"
+modelo_dir = "treinamento/modelos"
 if not os.path.exists(modelo_dir):
     os.makedirs(modelo_dir)
 
