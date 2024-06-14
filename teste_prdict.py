@@ -37,6 +37,7 @@ for arq in lista_faces_predicao:
 
 # Fazer predição para cada imagem
 for arq, imagem in dados_predicao:
+    print(modelo_lbph.predict(imagem))
     predicao, confianca = modelo_lbph.predict(imagem)
     sujeito_nome = sujeito_map_inverso.get(predicao, "Desconhecido")
     print(f"Arquivo: {arq}, Predição: {sujeito_nome}, Confiança: {confianca}")

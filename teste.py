@@ -66,7 +66,7 @@ for i, arq in enumerate(lista_faces_treino):
 
 # Mapear nomes dos sujeitos para inteiros
 unique_sujeitos = list(set(sujeitos))
-sujeito_map = {name: idx + 1 for idx, name in enumerate(unique_sujeitos)}
+sujeito_map = {name: idx for idx, name in enumerate(unique_sujeitos)}
 
 # Salvar o mapeamento em um arquivo
 with open("treinamento/modelos/sujeito_map.json", "w") as f:
