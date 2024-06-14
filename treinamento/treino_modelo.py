@@ -3,6 +3,7 @@ import os
 import numpy as np
 from sklearn.metrics import accuracy_score
 import shutil
+import random
 
 # Função para padronizar as imagens
 def padronizar_imagem(imagem_caminho):
@@ -29,11 +30,12 @@ for arq in lista_faces_captured:
     if len(partes) >= 2:
         sujeito = partes[0]
         numero = int(partes[2].split('.')[0])
-
-        if numero <= 10:
+        if numero <= 25:
             shutil.copyfile(os.path.join(faces_path_captured, arq), os.path.join(faces_path_treino, arq))
         else:
             shutil.copyfile(os.path.join(faces_path_captured, arq), os.path.join(faces_path_teste, arq))
+
+
 
 # Listar arquivos de imagens
 lista_faces_treino = [f for f in os.listdir(faces_path_treino) if os.path.isfile(os.path.join(faces_path_treino, f))]
