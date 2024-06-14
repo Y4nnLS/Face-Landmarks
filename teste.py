@@ -105,5 +105,5 @@ sujeitos_teste = np.array([sujeito_map[name] for name in sujeitos_teste], dtype=
 # Avaliar modelo LBPH
 y_pred_lbph = [modelo_lbph.predict(item)[0] for item in dados_teste]
 acuracia_lbph = accuracy_score(sujeitos_teste, y_pred_lbph)
-
+print(y_pred_lbph)
 print("Acurácia do modelo LBPH:", acuracia_lbph)

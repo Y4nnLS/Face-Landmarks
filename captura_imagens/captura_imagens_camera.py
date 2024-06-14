@@ -8,17 +8,6 @@ capture_dir = "treinamento/imagens/captured_faces/"
 if not os.path.exists(capture_dir):
     os.makedirs(capture_dir)
 
-# cap = cv2.VideoCapture(0)
-
-# mpDraw = mp.solutions.drawing_utils
-# mpFaceMesh = mp.solutions.face_mesh
-# faceMesh = mpFaceMesh.FaceMesh(max_num_faces=2)
-# drawSpec = mpDraw.DrawingSpec(thickness=1, circle_radius=1)
-
-# if not cap.isOpened():
-#     print("Erro ao abrir a webcam")
-#     exit()
-
 # Inicializar temporizador
 capture_interval = 0.3  # intervalo de captura em segundos
 
