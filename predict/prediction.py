@@ -12,11 +12,21 @@ def standardize_image(image):
     image = cv2.equalizeHist(image)
     return image
 
-def predict():
+def predict(selected_option):
     # Load the trained LBPH model
-    model_path = "training/models/model_lbph.yml"
-    model_lbph = cv2.face.LBPHFaceRecognizer_create()
-    model_lbph.read(model_path)
+    match selected_option:
+        case "1":
+            model_path = "training/models/model_lbph.yml"
+            model = cv2.face.LBPHFaceRecognizer_create()
+            model.read(model_path)
+        case "2":
+            model_path = "training/models/model_fisherface.yml"
+            model = cv2.face.LBPHFaceRecognizer_create()
+            model.read(model_path)
+        case "3":
+            model_path = "training/models/modelo_eigenface.yml"
+            model = cv2.face.EigenFaceRecognizer_create()
+            model.read(model_path)
 
     # Load the individual mapping
     with open("training/models/subject_map.json", "r") as f:
@@ -56,7 +66,7 @@ def predict():
                 y_min, y_max = min(y_coords), max(y_coords)
                 
                 # Adjust the face area to ensure that only the face is considered
-                margin = 30  # Additional margin around the face
+                margin = 40  # Additional margin around the face
                 x_min = max(0, x_min - margin)
                 y_min = max(0, y_min - margin)
                 x_max = min(iw, x_max + margin)
@@ -66,12 +76,8 @@ def predict():
                 standard_face = standardize_image(face)
                 face_equalized = cv2.equalizeHist(standard_face)
                 
-                # Debugging output without landmarks
-                cv2.imshow('Standardized Face', standard_face)
-                cv2.imshow('Equalized Face', face_equalized)
-                
                 # Make prediction with the trained model
-                predict, trust = model_lbph.predict(face_equalized)
+                predict, trust = model.predict(face_equalized)
                 
                 # Set a trust threshold to identify unknowns
                 threshold_trust = 110
@@ -97,4 +103,6 @@ def predict():
     cap.release()
     cv2.destroyAllWindows()
 
-predict()
+
+if __name__ == '__main__':
+    predict()
