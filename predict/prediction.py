@@ -21,10 +21,10 @@ def predict(selected_option):
             model.read(model_path)
         case "2":
             model_path = "training/models/model_fisherface.yml"
-            model = cv2.face.LBPHFaceRecognizer_create()
+            model = cv2.face.FisherFaceRecognizer_create()
             model.read(model_path)
         case "3":
-            model_path = "training/models/modelo_eigenface.yml"
+            model_path = "training/models/model_eigenface.yml"
             model = cv2.face.EigenFaceRecognizer_create()
             model.read(model_path)
 
