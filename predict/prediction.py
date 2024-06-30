@@ -2,13 +2,14 @@ import cv2
 import mediapipe as mp
 import json
 import os
+import operator
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
 
 # Function to standardize images
-def standardize_image(image):
+def standardize_image(image, w, h):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    image = cv2.resize(image, (200, 200), interpolation=cv2.INTER_LANCZOS4)
+    image = cv2.resize(image, (w, h), interpolation=cv2.INTER_LANCZOS4)
     image = cv2.equalizeHist(image)
     return image
 
@@ -19,14 +20,23 @@ def predict(selected_option):
             model_path = "training/models/model_lbph.yml"
             model = cv2.face.LBPHFaceRecognizer_create()
             model.read(model_path)
+            threshold_trust = 150
+            w = h = 200
+            less = operator.lt
         case "2":
             model_path = "training/models/model_fisherface.yml"
             model = cv2.face.FisherFaceRecognizer_create()
             model.read(model_path)
+            threshold_trust = 6000
+            w = h = 300
+            less = operator.gt
         case "3":
             model_path = "training/models/model_eigenface.yml"
             model = cv2.face.EigenFaceRecognizer_create()
             model.read(model_path)
+            threshold_trust = 19000
+            w = h = 300
+            less = operator.gt
 
     # Load the individual mapping
     with open("training/models/subject_map.json", "r") as f:
@@ -56,7 +66,6 @@ def predict(selected_option):
 
         if results.multi_face_landmarks:
             for faceLms in results.multi_face_landmarks:
-
                 # Determine the region of the face and make the prediction
                 ih, iw, ic = frame.shape
                 face_coords = [(int(lm.x * iw), int(lm.y * ih)) for lm in faceLms.landmark]
@@ -73,19 +82,18 @@ def predict(selected_option):
                 y_max = min(ih, y_max + margin)
                 
                 face = frame[y_min:y_max, x_min:x_max]
-                standard_face = standardize_image(face)
+                standard_face = standardize_image(face, w, h)
                 face_equalized = cv2.equalizeHist(standard_face)
                 
                 # Make prediction with the trained model
                 predict, trust = model.predict(face_equalized)
                 
                 # Set a trust threshold to identify unknowns
-                threshold_trust = 110
                 trust = round(trust)
                 print(f"Prediction: {predict}, Trust: {trust}")
                 
                 # Check if the prediction is valid or if it is an unknown
-                if trust < threshold_trust:
+                if less(trust, threshold_trust):
                     individual_name = reverse_individual_map.get(predict, "Unknown")
                 else:
                     individual_name = "Unknown"
