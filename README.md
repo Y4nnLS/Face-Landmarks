@@ -1,3 +1,17 @@
+## 🙋‍♂️ Equipe de desenvolvimento
+
+<table align='center'>
+  <tr>
+    <td align="center">
+        <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/123337250?v=4" width="100px;" alt=""/><br /><sub><b><a href="https://github.com/Y4nnLS">Kaue Galon</a></b></sub></a><br />👨‍💻</a></td>
+    <td align="center">
+        <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/101208372?v=4" width="100px;" alt=""/><br /><sub><b><a href="https://github.com/Y4nnLS">Yann Lucas</a></b></sub></a><br />🤓☝</a></td>
+    <td align="center">
+        <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/106789047?v=4" width="100px;" alt=""/><br /><sub><b><a href="https://github.com/Y4nnLS">Gael Huk Kukla</a></b></sub></a><br />👻</a></td>
+  </table>
+  </table>
+
+
 # Projeto de Reconhecimento Facial
 
 Este projeto realiza o reconhecimento facial utilizando três diferentes algoritmos: LBPH (Local Binary Patterns Histograms), Fisherface, e Eigenface. O projeto captura imagens de rostos, treina modelos com essas imagens e permite a predição em tempo real utilizando os modelos treinados.
