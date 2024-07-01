@@ -14,7 +14,7 @@
 
 # Projeto de Reconhecimento Facial
 
-Este projeto realiza o reconhecimento facial utilizando três diferentes algoritmos: LBPH (Local Binary Patterns Histograms), Fisherface, e Eigenface. O projeto captura imagens de rostos, treina modelos com essas imagens e permite a predição em tempo real utilizando os modelos treinados.
+Este projeto realiza o reconhecimento facial utilizando LBPH (Local Binary Patterns Histograms). O projeto captura imagens de rostos, treina o modelo com essas imagens e permite a predição em tempo real utilizando o modelo LBPH.
 
 ## Estrutura do Projeto
 
