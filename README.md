@@ -32,8 +32,6 @@ Este projeto realiza o reconhecimento facial utilizando três diferentes algorit
 │   │   └── training
 │   └── models
 │       ├── model_lbph.yml
-│       ├── model_fisherface.yml
-│       ├── model_eigenface.yml
 │       └── subject_map.json
 └── README.md
 ```
@@ -80,9 +78,8 @@ Este script treina três diferentes modelos de reconhecimento facial com as imag
 
 - Organiza as imagens no diretório `./training/images/training`.
 - Aplica normalização e aumento de dados nas imagens.
-- Divide os dados em conjuntos de treinamento e teste.
-- Treina os modelos LBPH, Fisherface e Eigenface.
-- Avalia a precisão dos modelos.
+- Treina o modelo LBPH.
+- Avalia a precisão do modelo.
 - Salva os modelos treinados no diretório `./training/models`.
 
 Para executar o script:
@@ -95,9 +92,8 @@ python training_model.py
 
 Este script utiliza a webcam para capturar imagens em tempo real e realiza a predição utilizando os modelos treinados.
 
-- Seleciona o modelo de predição.
 - Captura imagens da webcam.
-- Realiza a predição com o modelo selecionado.
+- Realiza a predição com o modelo LBPH.
 - Exibe o nome do sujeito identificado na imagem.
 
 Para executar o script:
@@ -110,8 +106,7 @@ python prediction.py
 
 Este script fornece uma interface de menu para selecionar o modelo de predição e realizar a predição em tempo real.
 
-- Apresenta um menu com opções para LBPH, Fisherface, Eigenface e sair.
-- Executa a predição com o modelo selecionado.
+- Executa a predição com o modelo LBPH.
 
 Para executar o script:
 
@@ -138,11 +133,9 @@ python main.py
 
 ### `prediction.py`
 
-- Lê o modelo selecionado e o mapeamento de sujeitos.
 - Utiliza Mediapipe para detectar rostos em imagens capturadas da webcam.
 - Realiza a predição e exibe o resultado na imagem capturada.
 
 ### `main.py`
 
-- Exibe um menu para selecionar o modelo de predição.
-- Executa o script de predição com o modelo selecionado.
+- Executa o script de predição.
