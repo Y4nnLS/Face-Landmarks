@@ -96,20 +96,6 @@ parametros_lbph = {
 model_lbph = cv2.face.LBPHFaceRecognizer_create(**parametros_lbph)
 model_lbph.train(X_train, np.array(y_train))
 
-# Train Eigenface model with hyperparameters
-parametros_eigenface = {
-    'num_components': 0  # Número de componentes principais
-}
-model_eigenface = cv2.face.EigenFaceRecognizer_create(**parametros_eigenface)
-model_eigenface.train(X_train, np.array(y_train))
-
-# Train Fisherface model with hyperparameters
-parametros_fisherface = {
-    'num_components': 0  # Número de componentes discriminantes
-}
-model_fisherface = cv2.face.FisherFaceRecognizer_create(**parametros_fisherface)
-model_fisherface.train(X_train, np.array(y_train))
-
 # Test models
 def test_model(model, X_test):
     predictions = []
@@ -118,24 +104,13 @@ def test_model(model, X_test):
         predictions.append(label)
     return predictions
 
-# Evaluate Eigenface model
-predictions_eigenface = test_model(model_eigenface, X_test)
-accuracy_eigenface = accuracy_score(y_test, predictions_eigenface)
-print(f"Accuracy Eigenface: {accuracy_eigenface}")
-
 # Evaluate LBPH model
 predictions_lbph = test_model(model_lbph, X_test)
 accuracy_lbph = accuracy_score(y_test, predictions_lbph)
 print(f"Accuracy LBPH: {accuracy_lbph}")
 
-# Evaluate Fisherface model
-predictions_fisherface = test_model(model_fisherface, X_test)
-accuracy_fisherface = accuracy_score(y_test, predictions_fisherface)
-print(f"Accuracy Fisherface: {accuracy_fisherface}")
-
 # Save models
 model_dir = "training/models"
 os.makedirs(model_dir, exist_ok=True)
 model_lbph.save(os.path.join(model_dir, "model_lbph.yml"))
-model_eigenface.save(os.path.join(model_dir, "model_eigenface.yml"))
-model_fisherface.save(os.path.join(model_dir, "model_fisherface.yml"))
+
